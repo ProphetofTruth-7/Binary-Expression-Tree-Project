@@ -109,6 +109,14 @@ class BinaryExpressionTree:
         return builder_stack.pop()
 
 
+    def core_evaluate(self):
+        if self._root is None:
+            raise ValueError("Empty Tree. Invalid!")
+        return self._recursive_evaluate(self._root)
+
+    def recursive_evaluate(self): #ew, but yay!
+
+
 test_expression = " 5 4 + 3 * "   #RECALL 
 builder_tree = BinaryExpressionTree()
 final_tree = builder_tree.build_expression_tree(test_expression)
