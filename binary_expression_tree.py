@@ -11,9 +11,10 @@ class BinaryExpressionTree:
         def __init__(self, container, node):
             self._container = container
             self._node = node
-    
-    def node_value(self):
-        return self._node.value
+        def value(self):
+            return self._node.value
+
+
     def __init__(self):
         self._root = None
     def _make_position(self, node):
@@ -53,3 +54,19 @@ class BinaryExpressionTree:
             raise ValueError("Right child already exists")
         node.right = self._Node(e, node)
         return self._make_position(node.right)
+
+    def build_expression_tree(self, expression):
+        print("Drop into the pit")
+
+
+tree = BinaryExpressionTree()
+a = tree.add_root("A")
+b = tree.add_left(a, "B")
+c = tree.add_right(a, "C")
+d = tree.add_left(b, "D")
+print(tree.root().value())
+print(tree.parent(d).value())
+print(tree.right(a).value())
+print(tree.left(b).value())
+print(tree.is_leaf(d))
+print(tree.is_leaf(b))
