@@ -70,7 +70,21 @@ class BinaryExpressionTree:
         other_tree._root = None
 
     def build_expression_tree(self, expression):
-        print("Drop into the pit")
+        tokens = expression.split()
+
+        if not tokens:
+            raise ValueError("Empty Expression. Invalid Call")
+        builder_stack = []
+        OPERATOR_SET = {"+", "*", "/", "-"}
+
+        for token in tokens:
+            if isinstance(token, (int, float)):
+                subtree = BinaryExpressionTree()
+                subtree.add_root(token)
+                builder_stack.append(subtree)
+            elif token in OPERATOR_SET:
+                if len(builder_stack) < 2:
+                    raise ValueError("Too Few Operands! Invalid Expression")
 
 
 tree = BinaryExpressionTree()
