@@ -73,33 +73,48 @@ class BinaryExpressionTree:
         tokens = expression.split()
 
         if not tokens:
-            raise ValueError("Empty Expression. Invalid Call")
+            raise ValueError("Empty Expression. Invalid Call!")
         builder_stack = []
         OPERATOR_SET = {"+", "*", "/", "-"}
 
         for token in tokens:
-            if isinstance(token, (int, float)):
+            try:
+                number = float(token)
                 subtree = BinaryExpressionTree()
                 subtree.add_root(token)
                 builder_stack.append(subtree)
-            elif token in OPERATOR_SET:
+                continue
+            except ValueError:
+                pass 
+
+            if token in OPERATOR_SET:
                 if len(builder_stack) < 2:
-                    raise ValueError("Too Few Operands! Invalid Expression")
+                    raise ValueError("Too Few Operands. Invalid Expression!")
+                right_subtree = builder_stack.pop()
+                left_subtree = builder_stack.pop()
+
+                subtree = BinaryExpressionTree()
+                subtree.add_root(token)
+                subtree._adopt_tree(left_subtree, subtree._root, "left")
+                subtree._adopt_tree(right_subtree, subtree._root, "right")
+
+                builder_stack.append(subtree)
+            else:
+                print(f"Invalid token: {token}")
+                raise ValueError("Invalid Token!")
+
+        if len(builder_stack) != 1:
+            raise ValueError("Uhm, somehow you don't have a single expression tree. Invalid Expression!")
+
+        return builder_stack.pop()
 
 
-tree = BinaryExpressionTree()
-tree2 = BinaryExpressionTree()
-a = tree.add_root("A")
-b = tree.add_left(a, "B")
-c = tree.add_right(a, "C")
-d = tree.add_left(b, "D")
+test_expression = " 5 4 + 3 * "   #RECALL 
+builder_tree = BinaryExpressionTree()
+final_tree = builder_tree.build_expression_tree(test_expression)
 
-x = tree2.add_root("X")
-q = tree2.add_left(x, "Q")
+print(final_tree.root().value())
+print(final_tree.left(final_tree.root()).value())
+print(final_tree.right(final_tree.root()).value())
 
-tree2._adopt_tree(tree, tree2._root, "right")
 
-print(tree2.root().value())
-print(tree2.left(x).value())
-print(tree2.right(x).value())
-print(tree2.left(tree2.right(x)).value())
