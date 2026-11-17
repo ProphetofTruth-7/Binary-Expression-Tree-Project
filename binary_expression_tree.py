@@ -55,18 +55,37 @@ class BinaryExpressionTree:
         node.right = self._Node(e, node)
         return self._make_position(node.right)
 
+    def _adopt_tree(self, other_tree, parent, side):
+        node = other_tree._root
+
+        if node is None:
+            raise ValueError("Cannot attach an empty tree")
+
+        if side == "left":
+            parent.left = node
+        else:
+            parent.right = node
+
+        node.parent = parent
+        other_tree._root = None
+
     def build_expression_tree(self, expression):
         print("Drop into the pit")
 
 
 tree = BinaryExpressionTree()
+tree2 = BinaryExpressionTree()
 a = tree.add_root("A")
 b = tree.add_left(a, "B")
 c = tree.add_right(a, "C")
 d = tree.add_left(b, "D")
-print(tree.root().value())
-print(tree.parent(d).value())
-print(tree.right(a).value())
-print(tree.left(b).value())
-print(tree.is_leaf(d))
-print(tree.is_leaf(b))
+
+x = tree2.add_root("X")
+q = tree2.add_left(x, "Q")
+
+tree2._adopt_tree(tree, tree2._root, "right")
+
+print(tree2.root().value())
+print(tree2.left(x).value())
+print(tree2.right(x).value())
+print(tree2.left(tree2.right(x)).value())
