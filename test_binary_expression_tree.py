@@ -11,6 +11,7 @@ class TestBinaryExpressionTree(unittest.TestCase):
         self.test_expression1 = " 5 4 + 3 * "
         self.test_expression2 = " 5 3 * 2 /"
         self.test_expression3 = " 5 0 /"
+        self.test_expression3 = " "
 
     def test_evaluation1(self):
         self.test_tree = self.test_builder_tree.build_expression_tree(self.test_expression1)
@@ -22,6 +23,10 @@ class TestBinaryExpressionTree(unittest.TestCase):
 
 
     def test_invalid_evaluation1(self):
+        self.test_tree = self.test_builder_tree.build_expression_tree(self.test_expression3)
+        with self.assertRaises(ZeroDivisionError):
+            self.test_tree.core_evaluate()
+    def test_invalid_evaluation2(self):
         self.test_tree = self.test_builder_tree.build_expression_tree(self.test_expression3)
         with self.assertRaises(ZeroDivisionError):
             self.test_tree.core_evaluate()
