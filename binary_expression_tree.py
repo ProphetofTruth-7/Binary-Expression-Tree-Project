@@ -153,9 +153,72 @@ class BinaryExpressionTree:
 
         return f"({left_value} {node.value} {right_value})"
 
+    def core_postfix_converter(self):
+        if self._root is None:
+            raise ValueError("Empty Tree. Invalid!")
+        return self._recursive_postfix_converter(self._root).strip()
+    def _recursive_postfix_converter(self, node):
+        finale = ""
+
+        if node.left is not None:
+            finale += self._recursive_postfix_converter(node.left)
+        if node.right is not None:
+            finale += self._recursive_postfix_converter(node.right)
+
+        finale += str(node.value) + " "
+        return finale
+
+    def preorder(self): #Root Left Right
+        def visit(target):
+            yield target
+
+            left_position = self.left(target)
+            if left_position is not None:
+                yield from visit(left_position)
+
+            right_position = self.right(target)
+            if right_position is not None:
+                yield from visit(right_position)
+
+        if self._root is not None:
+            yield from visit(self.root())
+
+
+    def inorder(self): #Left Root Right
+        def visit(target):
+            left_position = self.left(target)
+            if left_position is not None:
+                yield from visit(left_position)
+
+            yield target
+
+            right_position = self.right(target)
+            if right_position is not None:
+                yield from visit(right_position)
+
+        if self._root is not None:
+            yield from visit(self.root())
+
+
+    def postorder(self): #Left Right Root
+        def visit(target):
+            left_position = self.left(target)
+            if left_position is not None:
+                yield from visit(left_position)
+
+            right_position = self.right(target)
+            if right_position is not None:
+                yield from visit(right_position)
+
+            yield target
+
+        if self._root is not None:
+            yield from visit(self.root())
+
 
 test_expression = " 5 4 + 3 * " #POSTFIX, DUMBO
 builder_tree = BinaryExpressionTree()
 final_tree = builder_tree.build_expression_tree(test_expression)
 
-print(final_tree.core_infix_converter())
+for position in final_tree.preorder():
+    print(position.value())
