@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>95e15495-5ea1-41f2-9292-962c4b9b5dec</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>binary_expression_tree.py</StartupFile>
+    <StartupFile>test_binary_expression_tree.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -24,6 +24,7 @@
     <Compile Include="binary_expression_tree.py" />
     <Compile Include="main.py" />
     <Compile Include="Stack.py" />
+    <Compile Include="test_binary_expression_tree.py" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

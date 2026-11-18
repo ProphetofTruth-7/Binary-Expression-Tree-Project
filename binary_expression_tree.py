@@ -138,14 +138,3 @@ class BinaryExpressionTree:
             raise ValueError("Unsupported Operator")
 
 
-
-test_expression = " 5 4 + 3 * " #POSTFIX, DUMBO
-builder_tree = BinaryExpressionTree()
-final_tree = builder_tree.build_expression_tree(test_expression)
-
-print(final_tree.root().value())
-print(final_tree.left(final_tree.root()).value())
-print(final_tree.right(final_tree.root()).value())
-
-print(f"Evaluation: {final_tree.core_evaluate()}")
-
