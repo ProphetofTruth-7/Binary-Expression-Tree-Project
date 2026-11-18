@@ -14,6 +14,7 @@ class TestBinaryExpressionTree(unittest.TestCase):
         self.test_malformed_expression1 = " 5 0 / "
         self.test_malformed_expression2 = " "
         self.test_malformed_expression3 = " 5 * 3 "
+        self.test_malformed_expression4 = " 5 ^ 3 "
 
     def test_evaluation1(self):
         self.test_tree = self.test_builder_tree.build_expression_tree(self.test_expression1)
@@ -25,17 +26,29 @@ class TestBinaryExpressionTree(unittest.TestCase):
         self.test_tree = self.test_builder_tree.build_expression_tree(self.test_expression3)
         self.assertEqual(self.test_tree.core_evaluate(), 8)
 
+    def test_infix_conversion1(self):
+        self.test_tree = self.test_builder_tree.build_expression_tree(self.test_expression1)
+        self.assertEqual(self.test_tree.core_infix_converter(), "((5 + 4) * 3)")
+    def test_infix_conversion2(self):
+        self.test_tree = self.test_builder_tree.build_expression_tree(self.test_expression2)
+        self.assertEqual(self.test_tree.core_infix_converter(), "((5 * 3) / 2)")
+    def test_infix_conversion3(self):
+        self.test_tree = self.test_builder_tree.build_expression_tree(self.test_expression3)
+        self.assertEqual(self.test_tree.core_infix_converter(), "(5 + 3)")
 
-    def test_invalid_evaluation1(self):
+    def test_invalid_building1(self):
         self.test_tree = self.test_builder_tree.build_expression_tree(self.test_malformed_expression1)
         with self.assertRaises(ZeroDivisionError):
             self.test_tree.core_evaluate()
-    def test_invalid_evaluation2(self):
+    def test_invalid_building2(self):
         with self.assertRaises(ValueError):
             self.test_tree = self.test_builder_tree.build_expression_tree(self.test_malformed_expression2)
-    def test_invalid_evaluation3(self):
+    def test_invalid_building3(self):
         with self.assertRaises(ValueError):
             self.test_tree = self.test_builder_tree.build_expression_tree(self.test_malformed_expression3)
+    def test_invalid_building4(self):
+        with self.assertRaises(ValueError):
+            self.test_tree = self.test_builder_tree.build_expression_tree(self.test_malformed_expression4)
 
 if __name__ == "__main__":
     unittest.main()

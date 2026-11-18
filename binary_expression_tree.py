@@ -100,7 +100,6 @@ class BinaryExpressionTree:
 
                 builder_stack.append(subtree)
             else:
-                print(f"Invalid token: {token}")
                 raise ValueError("Invalid Token!")
 
         if len(builder_stack) != 1:
@@ -214,3 +213,4 @@ class BinaryExpressionTree:
 
         if self._root is not None:
             yield from visit(self.root())
+
