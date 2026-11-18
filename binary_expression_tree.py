@@ -214,3 +214,4 @@ class BinaryExpressionTree:
         if self._root is not None:
             yield from visit(self.root())
 
+            

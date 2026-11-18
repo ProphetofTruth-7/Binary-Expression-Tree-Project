@@ -26,6 +26,16 @@ class TestBinaryExpressionTree(unittest.TestCase):
         self.test_tree = self.test_builder_tree.build_expression_tree(self.test_expression3)
         self.assertEqual(self.test_tree.core_evaluate(), 8)
 
+    def test_postfix_conversion1(self):
+        self.test_tree = self.test_builder_tree.build_expression_tree(self.test_expression1)
+        self.assertEqual(self.test_tree.core_postfix_converter(), "5 4 + 3 *")
+    def test_postfix_conversion2(self):
+        self.test_tree = self.test_builder_tree.build_expression_tree(self.test_expression2)
+        self.assertEqual(self.test_tree.core_postfix_converter(), "5 3 * 2 /")
+    def test_postfix_conversion3(self):
+        self.test_tree = self.test_builder_tree.build_expression_tree(self.test_expression3)
+        self.assertEqual(self.test_tree.core_postfix_converter(), "5 3 +")
+
     def test_infix_conversion1(self):
         self.test_tree = self.test_builder_tree.build_expression_tree(self.test_expression1)
         self.assertEqual(self.test_tree.core_infix_converter(), "((5 + 4) * 3)")
@@ -49,6 +59,9 @@ class TestBinaryExpressionTree(unittest.TestCase):
     def test_invalid_building4(self):
         with self.assertRaises(ValueError):
             self.test_tree = self.test_builder_tree.build_expression_tree(self.test_malformed_expression4)
+
+
+
 
 if __name__ == "__main__":
     unittest.main()
