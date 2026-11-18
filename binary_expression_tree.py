@@ -109,11 +109,11 @@ class BinaryExpressionTree:
         return builder_stack.pop()
 
 
+    #Recursive Functionality
     def core_evaluate(self):
         if self._root is None:
             raise ValueError("Empty Tree. Invalid!")
         return self._recursive_evaluate(self._root)
-
     def _recursive_evaluate(self, node): #ew, but yay!
         if node.left is None and node.right is None:
             return float(node.value)
@@ -137,4 +137,25 @@ class BinaryExpressionTree:
         else:
             raise ValueError("Unsupported Operator")
 
+    def core_infix_converter(self):
+        if self._root is None:
+            raise ValueError("Empty Tree. Invalid!")
+        return self._recursive_infix_converter(self._root)
+    def _recursive_infix_converter(self, node):
+        if node.left is None and node.right is None:
+            return str(node.value)
 
+        if node.left is None or node.right is None:
+            raise ValueError("Operator must have two children")
+
+        left_value = self._recursive_infix_converter(node.left)
+        right_value = self._recursive_infix_converter(node.right)
+
+        return f"({left_value} {node.value} {right_value})"
+
+
+test_expression = " 5 4 + 3 * " #POSTFIX, DUMBO
+builder_tree = BinaryExpressionTree()
+final_tree = builder_tree.build_expression_tree(test_expression)
+
+print(final_tree.core_infix_converter())
