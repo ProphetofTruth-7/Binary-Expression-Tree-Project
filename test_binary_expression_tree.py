@@ -61,7 +61,24 @@ class TestBinaryExpressionTree(unittest.TestCase):
             self.test_tree = self.test_builder_tree.build_expression_tree(self.test_malformed_expression4)
 
 
+    def test_preorder1(self):
+        self.test_tree = self.test_builder_tree.build_expression_tree(self.test_expression1)
 
+        actual = " ".join(str(position.value()) for position in self.test_tree.preorder())
+
+        self.assertEqual(actual, "* + 5 4 3")
+    def test_preorder2(self):
+        self.test_tree = self.test_builder_tree.build_expression_tree(self.test_expression2)
+
+        actual = " ".join(str(position.value()) for position in self.test_tree.preorder())
+
+        self.assertEqual(actual, "/ * 5 3 2")
+    def test_preorder3(self):
+        self.test_tree = self.test_builder_tree.build_expression_tree(self.test_expression3)
+
+        actual = " ".join(str(position.value()) for position in self.test_tree.preorder())
+
+        self.assertEqual(actual, "+ 5 3")
 
 if __name__ == "__main__":
     unittest.main()
