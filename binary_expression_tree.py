@@ -214,11 +214,3 @@ class BinaryExpressionTree:
 
         if self._root is not None:
             yield from visit(self.root())
-
-
-test_expression = " 5 4 + 3 * " #POSTFIX, DUMBO
-builder_tree = BinaryExpressionTree()
-final_tree = builder_tree.build_expression_tree(test_expression)
-
-for position in final_tree.preorder():
-    print(position.value())
